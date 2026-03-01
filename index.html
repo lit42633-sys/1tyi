@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘春峰｜个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0c0c1d 0%, #1a1a3e 50%, #0c0c1d 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 星空粒子背景 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(12, 12, 29, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            color: #a0a0b8;
+            text-decoration: none;
+            margin-left: 32px;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            margin-bottom: 28px;
+            box-shadow: 0 0 40px rgba(96, 165, 250, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+.avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #ffffff, #a0c4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: #8888a8;
+            margin-bottom: 10px;
+        }
+
+        .typing-text {
+            font-size: 1.1rem;
+            color: #60a5fa;
+            margin-bottom: 36px;
+            min-height: 1.5em;
+        }
+
+        .typing-text .cursor {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(96, 165, 250, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #a0a0b8;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-outline:hover {
+            border-color: #60a5fa;
+            color: #60a5fa;
+            transform: translateY(-2px);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            animation: bounce 2s ease-in-out infinite;
+            color: #555;
+            font-size: 1.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* 通用 Section */
+        section {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-desc {
+            text-align: center;
+            color: #6b6b8a;
+            margin-bottom: 50px;
+            font-size: 1rem;
+        }
+
+        /* 关于我 */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: #a0a0b8;
+            line-height: 1.9;
+            margin-bottom: 16px;
+            font-size: 0.98rem;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 12px;
+            color: #a0a0b8;
+            font-size: 0.95rem;
+        }
+
+        .info-list li span:first-child {
+            color: #60a5fa;
+            min-width: 70px;
+            font-weight: 500;
+        }
+
+        /* 技能卡片 */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(96, 165, 250, 0.3);
+            box-shadow: 0 12px 40px rgba(96, 165, 250, 0.1);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: 14px;
+        }
+
+        .skill-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+            color: #e0e0f0;
+        }
+
+        .skill-card p {
+            color: #7a7a9a;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .skill-bar {
+            margin-top: 14px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            transition: width 1.5s ease;
+            width: 0;
+        }
+
+        /* 项目卡片 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(96, 165, 250, 0.3);
+            box-shadow: 0 12px 40px rgba(96, 165, 250, 0.1);
+        }
+
+        .project-cover {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .project-info {
+            padding: 22px;
+        }
+
+        .project-info h3 {
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+            color: #e0e0f0;
+        }
+
+        .project-info p {
+            color: #7a7a9a;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            background: rgba(96, 165, 250, 0.1);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+        }
+
+        /* 联系 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .contact-card h3 {
+            color: #e0e0f0;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .contact-card p {
+            color: #6b6b8a;
+            font-size: 0.88rem;
+        }
+
+        /* 页脚 */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #4a4a6a;
+            font-size: 0.88rem;
+        }
+
+        /* 滚动渐入动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .about-content { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 星空背景 -->
+<div class="stars" id="stars"></div>
+
+<!-- 导航栏 -->
+<nav>
+    <div class="logo">刘春峰</div>
+    <div class="nav-links">
+        <a href="#about">关于</a>
+        <a href="#skills">技能</a>
+        <a href="#projects">项目</a>
+<a href="#downloads">资料</a>
+        <a href="#contact">联系</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="avatar">
+  <img src="avatar.jpg" alt="刘春峰头像">
+</div>
+    <h1>你好，我是 刘春峰</h1>
+<p class="subtitle">地质工作者｜地质调查 · 野外填图 · 资料综合分析</p>
+    <p class="subtitle">一个热爱技术与创造的人</p>
+    <p class="typing-text" id="typing"></p>
+    <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">查看作品</a>
+        <a href="#contact" class="btn btn-outline">联系我</a>
+    </div>
+    <div class="scroll-hint">↓</div>
+</div>
+
+<!-- 关于我 -->
+<section id="about">
+    <h2 class="section-title fade-in">关于我</h2>
+    <p class="section-desc fade-in">了解更多关于我的故事</p>
+    <div class="about-content fade-in">
+        <div class="about-text">
+    <p>你好！我叫刘春峰，是一名地质工作者。日常工作聚焦于野外地质调查、地质填图、岩性与构造观察记录，以及样品采集与编录。</p>
+    <p>我擅长将野外一手资料与已有地质资料进行对比综合，完成剖面解读、图件整理与报告编写，为资源环境与工程建设相关工作提供基础地质支撑。</p>
+        </div>
+        <ul class="info-list">
+    <li><span>姓名</span><span>刘春峰</span></li>
+    <li><span>位置</span><span>中国</span></li>
+    <li><span>邮箱</span><span>2427982306@qq.com</span></li>
+    <li><span>状态</span><span>🟢 欢迎交流</span></li>
+</ul>
+    </div>
+</section>
+
+<!-- 技能 -->
+<section id="skills">
+    <h2 class="section-title fade-in">专业技能</h2>
+    <p class="section-desc fade-in">我在地质工作中的核心能力</p>
+    <<div class="skills-grid">
+    <div class="skill-card fade-in">
+        <div class="skill-icon">🧭</div>
+        <h3>野外地质调查</h3>
+        <p>路线踏勘、露头记录、照片归档与野外笔记规范化整理</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="90%"></div></div>
+    </div>
+
+    <div class="skill-card fade-in">
+        <div class="skill-icon">🗺️</div>
+        <h3>地质填图与地层对比</h3>
+        <p>地层划分、岩性描述、界线追索与对比分析，成果图件整理</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="85%"></div></div>
+    </div>
+
+    <div class="skill-card fade-in">
+        <div class="skill-icon">🪨</div>
+        <h3>岩性识别与描述</h3>
+        <p>沉积/火成/变质岩野外识别，结构构造观察，样品采集与编录</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="80%"></div></div>
+    </div>
+
+    <div class="skill-card fade-in">
+        <div class="skill-icon">📐</div>
+        <h3>构造观察与产状测量</h3>
+        <p>断裂、褶皱、节理等构造现象识别，产状测量与分析记录</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="75%"></div></div>
+    </div>
+
+    <div class="skill-card fade-in">
+        <div class="skill-icon">📊</div>
+        <h3>剖面测制与资料综合</h3>
+        <p>剖面测制、解释与对比，多源资料校核，形成可用的综合结论</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="85%"></div></div>
+    </div>
+
+    <div class="skill-card fade-in">
+        <div class="skill-icon">📝</div>
+        <h3>报告撰写与成果汇交</h3>
+        <p>调查报告/说明书编写，图件与表格规范整理，成果资料归档</p>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="80%"></div></div>
+    </div>
+</div>
+           
+<!-- 项目 -->
+<section id="projects">
+    <h2 class="section-title fade-in">精选项目</h2>
+    <p class="section-desc fade-in">一些我引以为傲的作品</p>
+    <div class="projects-grid">
+        <div class="project-card fade-in">
+            <div class="project-cover" style="background: linear-gradient(135deg, #1e3a5f, #2d5a8e);">🌐</div>
+            <div class="project-info">
+                <h3>成果整理中</h3>
+<p>正在将过往参与的调查与成果进行脱敏汇总，后续会更新代表性图件与案例。</p>
+                <div class="tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card fade-in">
+    <div class="project-cover" style="background: linear-gradient(135deg, #1a3c34, #2d6e5a);">📊</div>
+    <div class="project-info">
+        <h3>野外记录与图件</h3>
+        <p>持续完善野外记录规范、照片归档与剖面/图件整理流程，提升成果一致性与可复用性。</p>
+        <div class="tags">
+            <span class="tag">露头记录</span>
+            <span class="tag">剖面</span>
+            <span class="tag">填图</span>
+        </div>
+    </div>
+</div>
+        <div class="project-card fade-in">
+    <div class="project-cover" style="background: linear-gradient(135deg, #3d1a5c, #6b2fa0);">🤖</div>
+    <div class="project-info">
+        <h3>资料综合与分析</h3>
+        <p>聚焦地层对比、构造解析与多源资料互证，形成可落地的解释与建议。</p>
+        <div class="tags">
+            <span class="tag">地层对比</span>
+            <span class="tag">构造解析</span>
+            <span class="tag">综合研究</span>
+        </div>
+    </div>
+</div>
+</section>
+<section id="downloads">
+  <h2 class="section-title fade-in">资料下载</h2>
+  <p class="section-desc fade-in">我整理的一些数据与工具</p>
+
+  <div class="contact-grid">
+    <a class="contact-card fade-in" href="微量计算1.zip" download>
+      <div class="contact-icon">📦</div>
+      <h3>微量数据处理（压缩包）</h3>
+      <p>方法 / 标样 / 测试数据 / 计算脚本</p>
+    </a>
+  </div>
+</section>
+
+<!-- 联系 -->
+<section id="contact">
+    <h2 class="section-title fade-in">联系我</h2>
+    <p class="section-desc fade-in">期待与你的交流</p>
+    <div class="contact-grid">
+    <a class="contact-card fade-in" href="mailto:2427982306@qq.com">
+        <div class="contact-icon">📧</div>
+        <h3>邮箱</h3>
+        <p>2427982306@qq.com</p>
+    </a>
+</div>
+</section>
+
+<footer>
+    <p>&copy; 2026 刘春峰 &middot; 记录与探索地质世界</p>
+</footer>
+
+<script>
+    // 星空背景
+    (function createStars() {
+        const container = document.getElementById('stars');
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2.5 + 0.5;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
+            star.style.animationDelay = Math.random() * 4 + 's';
+            container.appendChild(star);
+        }
+    })();
+
+    // 打字机效果
+    (function typeWriter() {
+        const texts = [
+    '地质调查与野外填图 🧭',
+    '岩性识别与构造观察 🪨',
+    '剖面解读与资料综合 📐',
+    '成果图件整理与报告编写 📝'
+];
+        const el = document.getElementById('typing');
+        let textIndex = 0, charIndex = 0, deleting = false;
+
+        function tick() {
+            const current = texts[textIndex];
+            if (!deleting) {
+                el.innerHTML = current.slice(0, charIndex) + '<span class="cursor">|</span>';
+                charIndex++;
+                if (charIndex > current.length) {
+                    deleting = true;
+                    setTimeout(tick, 1800);
+                    return;
+                }
+                setTimeout(tick, 80);
+            } else {
+                el.innerHTML = current.slice(0, charIndex) + '<span class="cursor">|</span>';
+                charIndex--;
+                if (charIndex < 0) {
+                    deleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    setTimeout(tick, 400);
+                    return;
+                }
+                setTimeout(tick, 40);
+            }
+        }
+        tick();
+    })();
+
+    // 滚动渐入
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+
+                // 技能条动画
+                entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+                    bar.style.width = bar.dataset.width;
+                });
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // 导航平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+</script>
+
+</body>
+</html>
